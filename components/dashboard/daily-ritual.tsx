@@ -41,9 +41,8 @@ export function DailyRitual({
   const shareToTwitter = () => {
     if (!prediction) return
 
-    const shareText = generateShareText(prediction)
-    const textWithWallet = `${shareText}\n\nMy code: ${walletShort}`
-    const text = encodeURIComponent(textWithWallet)
+    const shareText = `${prediction.message}\n#KabbalahCode`
+    const text = encodeURIComponent(shareText)
     const twitterUrl = `https://twitter.com/intent/tweet?text=${text}`
     window.open(twitterUrl, "_blank", "width=550,height=420")
     setStep("share")
@@ -51,8 +50,8 @@ export function DailyRitual({
 
   const copyPrediction = () => {
     if (!prediction) return
-    const shareText = generateShareText(prediction)
-    navigator.clipboard.writeText(`${shareText}\n\nMy code: ${walletShort}`)
+    const shareText = `${prediction.message}\n#KabbalahCode`
+    navigator.clipboard.writeText(shareText)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -144,7 +143,7 @@ export function DailyRitual({
   if (step === "prophecy") {
     return (
       <div className="p-6 border border-[#FF9500]/30 bg-[#0a0a0a]">
-        <h2 className="text-xl font-bold text-white font-serif mb-6">Your Prophecy</h2>
+        <h2 className="text-xl font-bold text-white font-serif mb-6">Ваше пророчество</h2>
 
         {prediction && (
           <>
@@ -156,7 +155,6 @@ export function DailyRitual({
               </div>
               <p className="text-white text-lg leading-relaxed mb-4">&ldquo;{prediction.message}&rdquo;</p>
               <div className="flex items-center justify-between">
-                <span className="text-[#FF9500] font-mono">{prediction.code}</span>
                 <button onClick={copyPrediction} className="p-2 text-white/50 hover:text-white transition-colors">
                   {copied ? <Check size={18} /> : <Copy size={18} />}
                 </button>
@@ -168,7 +166,7 @@ export function DailyRitual({
               className="w-full py-4 bg-[#FF9500] text-black font-bold uppercase tracking-wide hover:bg-[#FFB340] transition-colors flex items-center justify-center gap-2"
             >
               <Share2 size={18} />
-              Share on X
+              Поделиться в X (Twitter)
             </button>
           </>
         )}
@@ -179,18 +177,9 @@ export function DailyRitual({
   if (step === "share") {
     return (
       <div className="p-6 border border-[#FF9500]/30 bg-[#0a0a0a]">
-        <h2 className="text-xl font-bold text-white font-serif mb-6">Verify Your Tweet</h2>
+        <h2 className="text-xl font-bold text-white font-serif mb-6">Проверьте твит</h2>
 
-        <p className="text-white/50 mb-4">Paste the URL of your tweet to verify and claim your points.</p>
-
-        <div className="p-3 bg-black/50 border border-[#FF9500]/10 mb-4">
-          <p className="text-white/50 text-xs mb-2">Tweet must include:</p>
-          <div className="flex gap-3 text-sm">
-            <span className="text-[#FF9500]">#KabbalahCode</span>
-            <span className="text-white/30">+</span>
-            <span className="text-[#FF9500] font-mono">{walletShort}</span>
-          </div>
-        </div>
+        <p className="text-white/50 mb-4">Вставьте ссылку на ваш твит для проверки и получения баллов. Твит должен содержать текст вашего предсказания и хештег <span className="text-[#FF9500]">#KabbalahCode</span>.</p>
 
         <div className="space-y-4">
           <input
@@ -217,7 +206,7 @@ export function DailyRitual({
             className="w-full py-4 bg-[#FF9500] text-black font-bold uppercase tracking-wide hover:bg-[#FFB340] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             <ExternalLink size={18} />
-            Verify Tweet
+            Проверить твит
           </button>
         </div>
       </div>
