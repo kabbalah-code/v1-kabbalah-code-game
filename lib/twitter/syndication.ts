@@ -42,18 +42,17 @@ export async function fetchTweetSyndication(tweetId: string): Promise<Syndicatio
   }
 }
 
-export function verifyTweetContent(text: string, walletAddress: string): { valid: boolean; error?: string } {
+export function verifyTweetContent(text: string, predictionMessage: string): { valid: boolean; error?: string } {
   const normalizedText = text.toLowerCase()
 
-  // Must contain #kabbalahcode hashtag
+  // Tweet должен содержать #kabbalahcode
   if (!normalizedText.includes("#kabbalahcode")) {
-    return { valid: false, error: "Tweet must include #KabbalahCode hashtag" }
+    return { valid: false, error: "Твит должен содержать хештег #KabbalahCode" }
   }
 
-  // Must contain wallet address identifier (first 6 chars after 0x)
-  const walletShort = walletAddress.toLowerCase().slice(2, 8)
-  if (!normalizedText.includes(walletShort)) {
-    return { valid: false, error: `Tweet must include your wallet identifier: ${walletShort}` }
+  // Твит должен содержать фразу предсказания (обязательно в нижнем регистре)
+  if (!normalizedText.includes(predictionMessage.toLowerCase().slice(0, 35))) {
+    return { valid: false, error: "Твит должен содержать фразу предсказания" }
   }
 
   return { valid: true }
