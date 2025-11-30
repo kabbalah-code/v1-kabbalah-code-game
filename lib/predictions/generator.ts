@@ -1,7 +1,6 @@
-// Kabbalah Prediction Generator
-// Authentic Kabbalistic Numerology System
-// Based on Sefer Yetzirah (Book of Creation) and Tree of Life teachings
-// 500,000+ unique predictions through sacred mathematics
+// Kabbalah Prediction Generator - Horoscope Style
+// Authentic Kabbalistic Numerology with Actionable Guidance
+// NO RANDOMNESS - Pure deterministic sacred mathematics
 
 // ============================================================================
 // ORIGINAL INTERFACE - Maintain compatibility
@@ -90,305 +89,398 @@ export interface Prediction {
 }
 
 // ============================================================================
-// 22 PATHS OF WISDOM - From Sefer Yetzirah (Book of Creation)
-// Each Path represents a sacred connection on the Tree of Life
+// 22 PATHS OF WISDOM - Authentic Kabbalah
 // ============================================================================
 
 const WISDOM_PATHS = [
-  { 
-    id: 1, 
-    name: "Admirable Intelligence", 
-    energy: "divine inspiration awakens", 
-    teaching: "Pure creative potential flows from the Crown"
-  },
-  { 
-    id: 2, 
-    name: "Illuminating Intelligence", 
-    energy: "sudden clarity pierces darkness", 
-    teaching: "Wisdom reveals what was hidden"
-  },
-  { 
-    id: 3, 
-    name: "Sanctifying Intelligence", 
-    energy: "sacred foundations establish", 
-    teaching: "Understanding builds lasting structures"
-  },
-  { 
-    id: 4, 
-    name: "Cohesive Intelligence", 
-    energy: "unity harmonizes all forces", 
-    teaching: "Wisdom and Understanding dance together"
-  },
-  { 
-    id: 5, 
-    name: "Radical Intelligence", 
-    energy: "breakthrough shatters limitations", 
-    teaching: "Divine creativity transforms reality"
-  },
-  { 
-    id: 6, 
-    name: "Mediating Intelligence", 
-    energy: "balance restores equilibrium", 
-    teaching: "Wisdom flows into loving kindness"
-  },
-  { 
-    id: 7, 
-    name: "Hidden Intelligence", 
-    energy: "occult wisdom surfaces", 
-    teaching: "Understanding reveals mysteries"
-  },
-  { 
-    id: 8, 
-    name: "Perfect Intelligence", 
-    energy: "divine order manifests", 
-    teaching: "Structure meets necessary strength"
-  },
-  { 
-    id: 9, 
-    name: "Pure Intelligence", 
-    energy: "truth dissolves all illusion", 
-    teaching: "Mercy balances with Justice"
-  },
-  { 
-    id: 10, 
-    name: "Resplendent Intelligence", 
-    energy: "ideas crystallize into form", 
-    teaching: "Loving expansion meets Beauty"
-  },
-  { 
-    id: 11, 
-    name: "Fiery Intelligence", 
-    energy: "passion ignites movement", 
-    teaching: "Chesed's abundance flows to Victory"
-  },
-  { 
-    id: 12, 
-    name: "Transparent Intelligence", 
-    energy: "future patterns reveal", 
-    teaching: "Strength clarifies the path ahead"
-  },
-  { 
-    id: 13, 
-    name: "Uniting Intelligence", 
-    energy: "fragments merge into wholeness", 
-    teaching: "Power descends into Communication"
-  },
-  { 
-    id: 14, 
-    name: "Luminous Intelligence", 
-    energy: "consciousness expands infinitely", 
-    teaching: "Beauty radiates to Victory"
-  },
-  { 
-    id: 15, 
-    name: "Constituting Intelligence", 
-    energy: "thoughts materialize reality", 
-    teaching: "Harmony establishes Foundation"
-  },
-  { 
-    id: 16, 
-    name: "Triumphant Intelligence", 
-    energy: "victory crowns all efforts", 
-    teaching: "Beauty expressed through Communication"
-  },
-  { 
-    id: 17, 
-    name: "Disposing Intelligence", 
-    energy: "chaos transforms to order", 
-    teaching: "Persistence meets Intellect"
-  },
-  { 
-    id: 18, 
-    name: "Intelligence of the House", 
-    energy: "stable foundations anchor", 
-    teaching: "Victory grounds in Foundation"
-  },
-  { 
-    id: 19, 
-    name: "Intelligence of Spiritual Activity", 
-    energy: "divine flow activates", 
-    teaching: "Communication roots in Foundation"
-  },
-  { 
-    id: 20, 
-    name: "Intelligence of Will", 
-    energy: "unshakeable resolve manifests", 
-    teaching: "Persistence reaches earthly Kingdom"
-  },
-  { 
-    id: 21, 
-    name: "Intelligence of Conciliation", 
-    energy: "cosmic rewards descend", 
-    teaching: "Intellect manifests in material realm"
-  },
-  { 
-    id: 22, 
-    name: "Faithful Intelligence", 
-    energy: "cycles complete perfectly", 
-    teaching: "Foundation brings Heaven to Earth"
-  },
+  { id: 1, name: "Admirable Intelligence", energy: "divine inspiration awakens" },
+  { id: 2, name: "Illuminating Intelligence", energy: "sudden clarity pierces darkness" },
+  { id: 3, name: "Sanctifying Intelligence", energy: "sacred foundations establish" },
+  { id: 4, name: "Cohesive Intelligence", energy: "unity harmonizes all forces" },
+  { id: 5, name: "Radical Intelligence", energy: "breakthrough shatters limitations" },
+  { id: 6, name: "Mediating Intelligence", energy: "balance restores equilibrium" },
+  { id: 7, name: "Hidden Intelligence", energy: "occult wisdom surfaces" },
+  { id: 8, name: "Perfect Intelligence", energy: "divine order manifests" },
+  { id: 9, name: "Pure Intelligence", energy: "truth dissolves all illusion" },
+  { id: 10, name: "Resplendent Intelligence", energy: "ideas crystallize into form" },
+  { id: 11, name: "Fiery Intelligence", energy: "passion ignites movement" },
+  { id: 12, name: "Transparent Intelligence", energy: "future patterns reveal" },
+  { id: 13, name: "Uniting Intelligence", energy: "fragments merge into wholeness" },
+  { id: 14, name: "Luminous Intelligence", energy: "consciousness expands infinitely" },
+  { id: 15, name: "Constituting Intelligence", energy: "thoughts materialize reality" },
+  { id: 16, name: "Triumphant Intelligence", energy: "victory crowns all efforts" },
+  { id: 17, name: "Disposing Intelligence", energy: "chaos transforms to order" },
+  { id: 18, name: "Intelligence of the House", energy: "stable foundations anchor" },
+  { id: 19, name: "Intelligence of Spiritual Activity", energy: "divine flow activates" },
+  { id: 20, name: "Intelligence of Will", energy: "unshakeable resolve manifests" },
+  { id: 21, name: "Intelligence of Conciliation", energy: "cosmic rewards descend" },
+  { id: 22, name: "Faithful Intelligence", energy: "cycles complete perfectly" },
 ]
 
 // ============================================================================
-// EXPANDED PREDICTION COMPONENTS - 500,000+ Combinations
+// HOROSCOPE-STYLE PREDICTION COMPONENTS
 // ============================================================================
 
-// 36 Enhanced Actions (doubled from original)
-const ENHANCED_ACTIONS = [
-  "trust your deepest intuition and inner knowing",
-  "take bold courageous action despite fears",
-  "release what no longer serves your highest good",
-  "embrace unexpected changes with open arms",
-  "speak your authentic truth with compassion",
-  "nurture your most important connections",
-  "set clear loving boundaries without guilt",
-  "follow your creative spark wherever it leads",
-  "honor your body's need for sacred rest",
-  "celebrate every victory no matter how small",
-  "learn profound lessons from past patterns",
-  "share your unique gifts generously",
-  "practice radical forgiveness starting now",
-  "align every action with your soul purpose",
-  "welcome divine timing with patient trust",
-  "transform your deepest fears into power",
-  "cultivate gratitude for life's abundance",
-  "surrender control to universal flow",
-  "listen closely to synchronistic messages",
-  "ground your visions in practical steps",
-  "elevate your consciousness through practice",
-  "purify your intentions with love",
-  "illuminate hidden aspects of yourself",
-  "balance spiritual and material needs",
-  "strengthen your connection to source",
-  "initiate the change you wish to see",
-  "complete unfinished cycles with grace",
-  "unite divided parts of your being",
-  "transcend limiting beliefs about yourself",
-  "protect your sacred energy vigilantly",
-  "awaken dormant gifts within you",
-  "anchor divine light in daily life",
-  "channel higher wisdom through action",
-  "harmonize conflicting desires within",
-  "magnetize your heart's true desires",
-  "embody your highest spiritual ideals",
+// Opening Hooks (what's happening this week)
+const OPENING_HOOKS = {
+  career: [
+    "Divine timing aligns for your career breakthrough",
+    "Recognition you deserve finally arrives this week",
+    "A professional opportunity emerges from unexpected places",
+    "Your voice carries unusual weight in business matters",
+    "Career momentum builds rapidly starting today",
+    "Leadership energy activates in your professional sphere",
+  ],
+  love: [
+    "Hidden feelings surface this week in matters of the heart",
+    "New romantic energy enters your life this week",
+    "Deep emotional connections strengthen unexpectedly",
+    "Love takes a surprising turn in your favor",
+    "Your heart opens to new possibilities now",
+    "Relationship clarity arrives through honest conversation",
+  ],
+  wealth: [
+    "Financial opportunity knocks three times this week",
+    "Money moves in your favor this week",
+    "Abundance flows through unexpected channels",
+    "Your financial intuition peaks dramatically",
+    "Wealth-building energy intensifies now",
+    "Resources multiply when you take bold action",
+  ],
+  health: [
+    "Your body sends clear signals this week",
+    "Energy levels soar this week with one simple change",
+    "Healing accelerates through conscious choices",
+    "Physical vitality reaches a powerful peak",
+    "Your wellness journey takes a positive turn",
+    "Body wisdom speaks loudly - listen carefully",
+  ],
+  spirituality: [
+    "A spiritual awakening begins this week",
+    "Divine connection strengthens through daily practice",
+    "Sacred insights arrive in unexpected moments",
+    "Your intuitive powers amplify significantly",
+    "Mystical experiences become more frequent",
+    "Spiritual downloads accelerate starting now",
+  ],
+  family: [
+    "Home matters demand attention but bring rewards",
+    "Family bonds deepen through shared experiences",
+    "Domestic harmony restores naturally this week",
+    "An old family pattern finally breaks",
+    "Home becomes your sanctuary of power",
+    "Family wisdom passes through generations now",
+  ],
+  creativity: [
+    "Creative fire ignites within you this week",
+    "Stop planning, start creating this week",
+    "Artistic expression reaches new heights",
+    "Your unique vision demands manifestation",
+    "Creative blocks dissolve suddenly",
+    "Inspiration strikes with unusual frequency",
+  ],
+  knowledge: [
+    "Sudden insights illuminate complex problems",
+    "A new skill calls to you this week",
+    "Learning accelerates through perfect timing",
+    "Mental clarity reaches brilliant levels",
+    "Knowledge seeking leads to breakthroughs",
+    "Wisdom arrives from unexpected teachers",
+  ],
+  community: [
+    "Your presence makes a difference this week",
+    "Leadership energy activates in group settings",
+    "Community building opportunities multiply",
+    "Social connections deepen meaningfully",
+    "You become the catalyst for change",
+    "Collective energy amplifies your impact",
+  ],
+  transformation: [
+    "Major transformation accelerates this week",
+    "Personal evolution reaches critical mass",
+    "Old patterns crumble to make space for new",
+    "Metamorphosis happens faster than expected",
+    "You shed what no longer serves powerfully",
+    "Rebirth energy pulses through your being",
+  ],
+  protection: [
+    "Guardian forces surround you this week",
+    "Your protective instincts sharpen dramatically",
+    "Safety consciousness increases naturally",
+    "Boundaries strengthen without effort",
+    "Divine protection becomes tangible",
+    "You create sacred space effortlessly",
+  ],
+  manifestation: [
+    "What you've visualized starts materializing",
+    "Dreams become reality through aligned action",
+    "Manifestation power peaks this week",
+    "Your intentions crystallize into form",
+    "The universe delivers beyond expectations",
+    "Reality bends to meet your vision",
+  ],
+}
+
+// Specific Events (when/what happens)
+const SPECIFIC_EVENTS = {
+  career: [
+    "A conversation this week opens doors you thought were closed",
+    "Someone influential notices your work by Thursday",
+    "An unexpected job offer arrives through old connections",
+    "Your skills get showcased in front of decision-makers",
+    "A project you abandoned becomes relevant again",
+    "Tuesday brings a career-defining conversation",
+  ],
+  love: [
+    "Someone close wants to reveal their true feelings",
+    "You meet someone special in an unexpected place",
+    "An old flame resurfaces with new energy",
+    "Wednesday evening favors deep romantic conversations",
+    "A friendship evolves into something more",
+    "Your vulnerability attracts genuine connection",
+  ],
+  wealth: [
+    "Review old contracts and connections this week",
+    "A side hustle idea gains unexpected traction",
+    "Money you thought lost may return by Friday",
+    "Investment timing aligns perfectly midweek",
+    "Someone offers a lucrative collaboration",
+    "Financial clarity arrives through simple calculation",
+  ],
+  health: [
+    "Energy peaks midweek - perfect for new habits",
+    "A nagging symptom needs attention now, not later",
+    "Your workout routine craves variety by Wednesday",
+    "Sleep quality improves with one simple change",
+    "Body responds powerfully to plant-based nutrition",
+    "Movement becomes medicine starting today",
+  ],
+  spirituality: [
+    "Dreams carry important messages - keep a journal",
+    "Meditation reveals answers you've been seeking",
+    "A spiritual teacher appears at the perfect moment",
+    "Your third eye opens during sunset meditation",
+    "Synchronicities multiply after Tuesday",
+    "Angel numbers appear everywhere you look",
+  ],
+  family: [
+    "A family member needs your wisdom more than advice",
+    "Reorganize one space this week - clarity follows",
+    "Old family issues resolve through gentle conversation",
+    "Sunday dinner becomes a healing ritual",
+    "Ancestral patterns become clear and breakable",
+    "Children teach you profound lessons this week",
+  ],
+  creativity: [
+    "That abandoned project calls you back now",
+    "Your unique voice needs expression by Friday",
+    "Inspiration strikes Tuesday morning - capture it",
+    "Collaboration opportunities emerge naturally",
+    "Imperfect action beats perfect planning",
+    "Your art heals others in unexpected ways",
+  ],
+  knowledge: [
+    "A mystery that puzzled you becomes crystal clear",
+    "The perfect course or mentor appears this week",
+    "Wednesday afternoon brings breakthrough understanding",
+    "Your brain craves new information - feed it",
+    "Teaching others deepens your own mastery",
+    "Questions you ask unlock universal answers",
+  ],
+  community: [
+    "A friend needs help but won't ask - offer first",
+    "That group you've been considering? Join now",
+    "Your organizing skills get recognized and needed",
+    "Small acts of kindness ripple outward powerfully",
+    "Leadership emerges naturally through service",
+    "Community building starts with showing up",
+  ],
+  transformation: [
+    "What no longer serves falls away naturally",
+    "Breakthrough happens when you stop forcing",
+    "Old patterns break; new possibilities emerge",
+    "Change accelerates beyond your control - embrace it",
+    "Your past self thanks you for letting go",
+    "Transformation requires releasing yesterday's identity",
+  ],
+  protection: [
+    "Trust your instinct about certain people or places",
+    "Set boundaries without guilt - 'no' is complete",
+    "Energy vampires reveal themselves clearly",
+    "Sacred space at home becomes non-negotiable",
+    "Your gut feelings prove accurate by Friday",
+    "Protection comes through conscious awareness",
+  ],
+  manifestation: [
+    "Universe heard your request - match it with action",
+    "Write goals daily - they materialize faster",
+    "Opportunities appear disguised as work",
+    "Say yes to invitations - synchronicity waits there",
+    "Your thoughts create reality faster now",
+    "Stay positive and persistent through Thursday",
+  ],
+}
+
+// Action Steps (3-5 specific things to do)
+const ACTION_STEPS = {
+  career: [
+    "Trust instincts and speak up in meetings - your ideas have power now",
+    "Update your resume and portfolio before Thursday",
+    "Negotiate confidently - you have more leverage than you realize",
+    "Prepare to showcase achievements when someone asks",
+    "Network actively - Monday evening is especially powerful",
+    "Document your wins - recognition requires evidence",
+  ],
+  love: [
+    "Create quiet moments for honest conversation",
+    "Your vulnerability will be met with warmth",
+    "Let go of past hurts - forgiveness unlocks new love",
+    "Wear something that makes you feel confident Tuesday",
+    "Flirt playfully - romantic energy flows easily",
+    "Express feelings through actions, not just words",
+  ],
+  wealth: [
+    "Invest in yourself now - take that course, buy that tool",
+    "Research investments you've been eyeing",
+    "Start the side hustle today, even just 30 minutes",
+    "Politely remind anyone who owes you money",
+    "Raise your rates - your skills are worth more",
+    "Practice abundance mindset daily",
+  ],
+  health: [
+    "Sleep becomes your superpower - prioritize 8 hours",
+    "Movement heals: even a 10-minute walk changes everything",
+    "Drink water first thing every morning",
+    "Try something new in your workout Wednesday",
+    "Green smoothies daily work wonders",
+    "Listen to your body's whispers before they become screams",
+  ],
+  spirituality: [
+    "Keep a dream journal by your bed",
+    "Meditate for 5 minutes every morning",
+    "Light a candle and set daily intentions",
+    "Notice repeating numbers - angels are messaging",
+    "Practice gratitude before bed nightly",
+    "Trust those gut feelings - intuition is accurate",
+  ],
+  family: [
+    "Cook and eat dinner together this week",
+    "Laugh together - humor heals old wounds",
+    "Listen more than you advise",
+    "Create one new family ritual starting Sunday",
+    "Share stories of ancestors - honor lineage",
+    "Small gestures matter more than grand plans",
+  ],
+  creativity: [
+    "Don't wait for perfection - start messy today",
+    "Share your work publicly by Friday",
+    "Collaborate with someone creative this week",
+    "Create daily, even just 5 minutes",
+    "Express emotions through art, not arguments",
+    "Your work doesn't need permission to exist",
+  ],
+  knowledge: [
+    "Enroll in that course you've been eyeing",
+    "Ask questions others are afraid to voice",
+    "Practice new skills 15 minutes daily",
+    "Share what you learn - teaching deepens understanding",
+    "Read for 20 minutes before bed",
+    "Watch that tutorial you bookmarked months ago",
+  ],
+  community: [
+    "Show up even when you don't feel like it",
+    "Lead by example, not by words",
+    "Organize the gathering everyone talks about",
+    "Mentor someone younger or less experienced",
+    "Your voice matters in group decisions",
+    "Small acts of service create massive ripples",
+  ],
+  transformation: [
+    "Don't fight change - flow with it naturally",
+    "Let your past self go with gratitude",
+    "Embrace the unknown courageously",
+    "Journal about who you're becoming",
+    "Release without regret or guilt",
+    "Trust the process even when it's uncomfortable",
+  ],
+  protection: [
+    "Say no without explanation or guilt",
+    "Protect your energy from draining people",
+    "Create sacred space at home this weekend",
+    "Trust feelings when something seems off",
+    "Clear your space with smoke or sound",
+    "Set digital boundaries - limit social media",
+  ],
+  manifestation: [
+    "Visualize desired outcomes every morning",
+    "Act as if it's already yours",
+    "Write 'I am' affirmations daily",
+    "Take one aligned action every day",
+    "Stay in receiving mode - expect miracles",
+    "Match energy of what you desire",
+  ],
+}
+
+// Motivational Closes
+const MOTIVATIONAL_CLOSES = [
+  "Your moment is here",
+  "Fortune favors the bold",
+  "Trust the process",
+  "You're exactly where you need to be",
+  "The universe supports you",
+  "Magic happens when you believe",
+  "Your time has come",
+  "Believe in your power",
+  "Everything is unfolding perfectly",
+  "Success is inevitable now",
+  "You are divinely guided",
+  "Your path is clearing",
+  "Miracles are normal for you",
+  "You're more ready than you realize",
+  "The best is yet to come",
 ]
 
-// 24 Time Modifiers (doubled)
-const TIMEFRAMES = [
-  "this morning as dawn breaks",
-  "by midday when sun peaks",
-  "this evening at twilight",
-  "within the next 3 days",
-  "before this week concludes",
-  "at the next sunset",
-  "under tonight's moonlight",
-  "when you least expect it",
-  "in quiet moments of solitude",
-  "during meaningful conversations",
-  "through powerful synchronicities",
-  "in meditation or prayer",
-  "as new moon energy builds",
-  "when full moon illuminates",
-  "during Mercury's influence",
-  "at threshold moments",
-  "in dreams this night",
-  "within 7 sacred days",
-  "as seasons shift",
-  "at crossroads decisions",
-  "during spiritual practices",
-  "when angels whisper guidance",
-  "in moments of divine grace",
-  "as cosmic forces align",
+// ============================================================================
+// LUNAR PHASES - Affect prediction tone and timing
+// ============================================================================
+
+const LUNAR_PHASES = [
+  { phase: "new_moon", name: "New Moon", energy: "new beginnings", timing: "this week" },
+  { phase: "waxing_crescent", name: "Waxing Crescent", energy: "building momentum", timing: "within 3 days" },
+  { phase: "first_quarter", name: "First Quarter", energy: "taking action", timing: "by midweek" },
+  { phase: "waxing_gibbous", name: "Waxing Gibbous", energy: "refining plans", timing: "before Friday" },
+  { phase: "full_moon", name: "Full Moon", energy: "peak manifestation", timing: "this week" },
+  { phase: "waning_gibbous", name: "Waning Gibbous", energy: "gratitude and sharing", timing: "in coming days" },
+  { phase: "last_quarter", name: "Last Quarter", energy: "releasing and clearing", timing: "by weekend" },
+  { phase: "waning_crescent", name: "Waning Crescent", energy: "rest and reflection", timing: "within days" },
 ]
 
-// 20 Power Modifiers
-const POWER_MODIFIERS = [
-  "A powerful cosmic shift activates",
-  "Divine timing perfectly aligns",
-  "Your soul's path illuminates clearly",
-  "Hidden blessings reveal themselves",
-  "Karmic lessons complete gracefully",
-  "Sacred new cycles begin now",
-  "Destiny doors swing wide open",
-  "Miraculous manifestations emerge",
-  "Your prayers receive divine answers",
-  "Ancient wisdom awakens within",
-  "Cosmic forces conspire for you",
-  "Angels orchestrate synchronicities",
-  "Universal abundance flows freely",
-  "Sacred geometry aligns perfectly",
-  "Celestial energies amplify intentions",
-  "Divine matrix reconfigures favorably",
-  "Quantum possibilities collapse positively",
-  "Spiritual downloads accelerate",
-  "Mystical portals open temporarily",
-  "Sacred contracts activate powerfully",
-]
+// ============================================================================
+// SEASONS - Affect domain focus and energy
+// ============================================================================
 
-// 18 Wisdom Teachings
-const WISDOM_TEACHINGS = [
-  "Trust: all unfolds in perfect timing",
-  "Know: you are divinely guided always",
-  "Remember: your soul chose this path",
-  "Understand: obstacles are hidden blessings",
-  "Recognize: you already possess everything",
-  "Believe: magic surrounds you now",
-  "Accept: some answers come in silence",
-  "Realize: giving and receiving are one",
-  "See: every person mirrors your soul",
-  "Feel: love is the ultimate truth",
-  "Embrace: vulnerability equals strength",
-  "Witness: miracles are natural occurrences",
-  "Practice: thoughts become your reality",
-  "Honor: your unique sacred journey",
-  "Allow: divine flow to guide you",
-  "Discover: joy is your birthright",
-  "Embody: you are infinite consciousness",
-  "Perceive: abundance is a state of being",
-]
-
-// 15 Depth Modifiers (for longer tweets)
-const DEPTH_MODIFIERS = [
-  "through authentic Gematria calculations",
-  "via sacred numerology of your wallet",
-  "using Tree of Life mathematics",
-  "by ancient Sefer Yetzirah wisdom",
-  "through 22 Paths sacred alignment",
-  "via Sephirot energy channeling",
-  "using Kabbalistic soul analysis",
-  "by cosmic numerical patterns",
-  "through mystical calculation system",
-  "via divine mathematical blueprint",
-  "using sacred geometric principles",
-  "by universal numeric codes",
-  "through celestial mathematics",
-  "via spiritual numerology engine",
-  "using ancient wisdom algorithms",
+const SEASONS = [
+  { season: "spring", energy: "growth and renewal", focus: "new beginnings" },
+  { season: "summer", energy: "abundance and action", focus: "manifestation" },
+  { season: "autumn", energy: "harvest and gratitude", focus: "completion" },
+  { season: "winter", energy: "rest and reflection", focus: "inner work" },
 ]
 
 // ============================================================================
 // AUTHENTIC KABBALISTIC NUMEROLOGY ENGINE
-// No random generation - pure mathematical determinism
 // ============================================================================
 
 class KabbalahNumerology {
   private readonly MASTER_NUMBERS = [11, 22, 33]
   
-  /**
-   * Convert wallet address to Kabbalistic Gematria
-   * Each character has numerical value (like Hebrew letters)
-   * This is NOT random - it's deterministic sacred mathematics
-   */
   walletToGematria(walletAddress: string): number {
     const cleanAddr = walletAddress.replace('0x', '').toLowerCase()
     let sum = 0
     
-    for (let i = 0; i < cleanAddr.length; i++) {
-      const char = cleanAddr[i]
+    for (const char of cleanAddr) {
       if (char >= '0' && char <= '9') {
         sum += parseInt(char)
       } else {
-        // Hex letters map to Gematria values: a=1, b=2, c=3, d=4, e=5, f=6
         sum += (char.charCodeAt(0) - 'a'.charCodeAt(0) + 1)
       }
     }
@@ -396,10 +488,6 @@ class KabbalahNumerology {
     return this.reduceToSingleDigit(sum)
   }
   
-  /**
-   * Pythagorean reduction - preserve master numbers
-   * Master numbers (11, 22, 33) have special spiritual significance
-   */
   reduceToSingleDigit(num: number): number {
     while (num > 9 && !this.MASTER_NUMBERS.includes(num)) {
       num = String(num).split('').reduce((sum, digit) => sum + parseInt(digit), 0)
@@ -407,49 +495,41 @@ class KabbalahNumerology {
     return num
   }
   
-  /**
-   * Calculate lunar influence based on date
-   * Kabbalah teaches lunar cycles affect spiritual energy
-   */
   getLunarInfluence(date: Date): number {
     const day = date.getDate()
     const month = date.getMonth() + 1
     const year = date.getFullYear()
-    
-    // Combine day, month, year for complete temporal signature
     const combined = day + month + (year % 100)
     return this.reduceToSingleDigit(combined)
   }
   
-  /**
-   * Calculate which of 22 Paths is active
-   * Based on combined wallet + date + destiny energies
-   */
+  getLunarPhase(date: Date): typeof LUNAR_PHASES[number] {
+    // Simplified lunar calculation (day of month mod 29)
+    const dayOfMonth = date.getDate()
+    const phaseIndex = Math.floor((dayOfMonth / 29) * 8)
+    return LUNAR_PHASES[phaseIndex % 8]
+  }
+  
+  getSeason(date: Date): typeof SEASONS[number] {
+    const month = date.getMonth()
+    if (month >= 2 && month <= 4) return SEASONS[0] // spring
+    if (month >= 5 && month <= 7) return SEASONS[1] // summer
+    if (month >= 8 && month <= 10) return SEASONS[2] // autumn
+    return SEASONS[3] // winter
+  }
+  
   calculatePath(walletNum: number, dateNum: number, destinyNum: number): number {
-    const combined = walletNum + dateNum + destinyNum
-    return ((combined - 3) % 22) + 1
+    return ((walletNum + dateNum + destinyNum - 3) % 22) + 1
   }
   
-  /**
-   * Calculate Sephirah (1-10) from energies
-   */
-  calculateSephirah(walletNum: number, dateNum: number): number {
-    return ((walletNum + dateNum - 2) % 10) + 1
-  }
-  
-  /**
-   * Generate deterministic index for any component
-   * Uses sacred multiplication and modulo (not random!)
-   */
   getDeterministicIndex(factor1: number, factor2: number, arrayLength: number): number {
-    // Sacred multiplication principle from Kabbalah
-    const combined = (factor1 * 7) + (factor2 * 13) // 7 and 13 are sacred numbers
+    const combined = (factor1 * 7) + (factor2 * 13)
     return combined % arrayLength
   }
 }
 
 // ============================================================================
-// MAIN GENERATION FUNCTION
+// MAIN GENERATION FUNCTION - HOROSCOPE STYLE
 // ============================================================================
 
 export function generatePrediction(
@@ -460,53 +540,56 @@ export function generatePrediction(
   const numerology = new KabbalahNumerology()
   const dateStr = date.toISOString().split("T")[0]
   
-  // Calculate ALL numbers using sacred numerology (NO RANDOMNESS)
+  // Calculate sacred numbers
   const walletGematria = numerology.walletToGematria(walletAddress)
   const lunarInfluence = numerology.getLunarInfluence(date)
   const destinyNumber = numerology.reduceToSingleDigit(walletGematria + lunarInfluence + walletNumber)
   const pathNumber = numerology.calculatePath(walletGematria, lunarInfluence, destinyNumber)
-  const sephirahNumber = numerology.calculateSephirah(walletGematria, lunarInfluence)
+  const sephirahNumber = ((walletGematria + lunarInfluence - 2) % 10) + 1
   
-  // Select ALL components using sacred mathematics (NO RANDOMNESS)
+  // Get lunar and seasonal influences
+  const lunarPhase = numerology.getLunarPhase(date)
+  const season = numerology.getSeason(date)
+  
+  // Select components
   const path = WISDOM_PATHS[pathNumber - 1]
   const sephira = SEPHIROT[sephirahNumber - 1]
   
   const domainIndex = numerology.getDeterministicIndex(destinyNumber, lunarInfluence, LIFE_DOMAINS.length)
   const domain = LIFE_DOMAINS[domainIndex]
+  const domainKey = domain.id as keyof typeof OPENING_HOOKS
   
   const archetypeIndex = numerology.getDeterministicIndex(pathNumber, walletGematria, ARCHETYPES.length)
   const archetype = ARCHETYPES[archetypeIndex]
   
-  const actionIndex = numerology.getDeterministicIndex(pathNumber, sephirahNumber, ENHANCED_ACTIONS.length)
-  const enhancedAction = ENHANCED_ACTIONS[actionIndex]
-  const baseAction = ACTIONS[actionIndex % ACTIONS.length]
+  const baseActionIndex = numerology.getDeterministicIndex(pathNumber, sephirahNumber, ACTIONS.length)
+  const baseAction = ACTIONS[baseActionIndex]
   
-  const timeIndex = numerology.getDeterministicIndex(date.getDate(), lunarInfluence, TIMEFRAMES.length)
-  const timeframe = TIMEFRAMES[timeIndex]
+  // Select horoscope components
+  const hookIndex = numerology.getDeterministicIndex(walletGematria, pathNumber, OPENING_HOOKS[domainKey].length)
+  const hook = OPENING_HOOKS[domainKey][hookIndex]
   
-  const modifierIndex = numerology.getDeterministicIndex(pathNumber, destinyNumber, POWER_MODIFIERS.length)
-  const modifier = POWER_MODIFIERS[modifierIndex]
+  const eventIndex = numerology.getDeterministicIndex(lunarInfluence, sephirahNumber, SPECIFIC_EVENTS[domainKey].length)
+  const event = SPECIFIC_EVENTS[domainKey][eventIndex]
   
-  const wisdomIndex = numerology.getDeterministicIndex(walletGematria, pathNumber, WISDOM_TEACHINGS.length)
-  const wisdom = WISDOM_TEACHINGS[wisdomIndex]
+  const actionIndex = numerology.getDeterministicIndex(destinyNumber, date.getDate(), ACTION_STEPS[domainKey].length)
+  const actionStep = ACTION_STEPS[domainKey][actionIndex]
   
-  const depthIndex = numerology.getDeterministicIndex(sephirahNumber, destinyNumber, DEPTH_MODIFIERS.length)
-  const depth = DEPTH_MODIFIERS[depthIndex]
+  const closeIndex = numerology.getDeterministicIndex(pathNumber, destinyNumber, MOTIVATIONAL_CLOSES.length)
+  const close = MOTIVATIONAL_CLOSES[closeIndex]
   
-  // Generate unique code with Path number (proves it's not random)
+  // Generate unique code
   const hash = Math.abs(walletAddress.split('').reduce((acc, char) => 
     acc + char.charCodeAt(0), 0) + date.getTime()).toString(16).slice(0, 4)
   const code = `KC-${pathNumber}-${hash}`
   
-  // Build message (keep under 240 chars for tweet space)
-  const coreMessage = `${modifier}. Path ${pathNumber}: ${path.energy} in ${domain.name.toLowerCase()}. ${wisdom}.`
+  // Build horoscope-style message (under 280 chars for Twitter)
+  const message = `${hook}. ${event}. ${actionStep}. ${close}.`
   
-  let message: string
-  if (coreMessage.length <= 240) {
-    message = coreMessage
-  } else {
-    // Shorter version if needed
-    message = `Path ${pathNumber}: ${path.energy} in ${domain.name.toLowerCase()}. ${wisdom}.`
+  // Trim if too long
+  let finalMessage = message
+  if (message.length > 240) {
+    finalMessage = `${hook}. ${event}. ${close}.`
   }
   
   return {
@@ -515,78 +598,40 @@ export function generatePrediction(
     sephira,
     archetype,
     action: baseAction,
-    message,
+    message: finalMessage,
     date: dateStr,
   }
 }
 
-// ============================================================================
-// ENHANCED SHARE FUNCTIONS
-// ============================================================================
-
 export function generateShareText(prediction: Prediction): string {
-  const kabbalisticExplanation = getKabbalisticMeaning(prediction)
+  const pathNumber = parseInt(prediction.code.split('-')[1])
   
-  // Format: [Prediction] + [Kabbalah explanation] + #KabbalahCode
-  const fullText = `${prediction.message}\n\n${kabbalisticExplanation}\n\n#KabbalahCode`
+  // Format: [Prediction] + Path info + hashtag (under 280 chars)
+  const pathInfo = `Path ${pathNumber} • ${prediction.sephira.name} Energy`
+  const fullText = `${prediction.message}\n\n${pathInfo}\n#KabbalahCode`
   
-  // Ensure under 280 characters
   if (fullText.length <= 280) {
     return fullText
   }
   
-  // If too long, use shorter explanation
-  const shortExplanation = `Calculated ${getShortKabbalisticPath(prediction)}`
-  const shorterText = `${prediction.message}\n\n${shortExplanation}\n\n#KabbalahCode`
-  
-  if (shorterText.length <= 280) {
-    return shorterText
-  }
-  
-  // Last resort: just prediction + hashtag
+  // If too long, remove path info
   return `${prediction.message}\n\n#KabbalahCode`
 }
 
-/**
- * Get full Kabbalistic meaning - THIS IS THE KEY EXPLANATION
- * Shows this is NOT random, but sacred mathematics
- */
-export function getKabbalisticMeaning(prediction: Prediction): string {
-  const pathNumber = parseInt(prediction.code.split('-')[1])
-  const path = WISDOM_PATHS[pathNumber - 1]
-  
-  return `${path.name} (Path ${pathNumber}) channeled through ${prediction.sephira.name} sphere via authentic Gematria.`
-}
-
-/**
- * Get short path description
- */
-function getShortKabbalisticPath(prediction: Prediction): string {
-  const pathNumber = parseInt(prediction.code.split('-')[1])
-  return `via Path ${pathNumber} numerology`
-}
-
-/**
- * Get detailed insight about the prediction
- */
 export function getPredictionInsight(prediction: Prediction): string {
   const pathNumber = parseInt(prediction.code.split('-')[1])
   const path = WISDOM_PATHS[pathNumber - 1]
   
-  return `${path.teaching}. The ${prediction.sephira.name} sphere (${prediction.sephira.energy}) activates this energy in your ${prediction.domain.name.toLowerCase()}. This alignment is calculated through authentic Kabbalistic Gematria - your wallet's numerical essence combined with today's lunar influence.`
+  return `The ${path.name} (Path ${pathNumber}) activates through ${prediction.sephira.name}, bringing ${path.energy}. Your ${prediction.domain.name} receives focused cosmic support today.`
 }
 
-/**
- * CALCULATION PROOF - Shows the mathematics behind prediction
- * Use this to prove it's not random to users
- */
 export function getCalculationProof(walletAddress: string, walletNumber: number, date: Date): string {
   const numerology = new KabbalahNumerology()
-  
   const walletGematria = numerology.walletToGematria(walletAddress)
   const lunarInfluence = numerology.getLunarInfluence(date)
   const destinyNumber = numerology.reduceToSingleDigit(walletGematria + lunarInfluence + walletNumber)
   const pathNumber = numerology.calculatePath(walletGematria, lunarInfluence, destinyNumber)
+  const lunarPhase = numerology.getLunarPhase(date)
   
-  return `Your Gematria: ${walletGematria} | Lunar: ${lunarInfluence} | Destiny: ${destinyNumber} | Path: ${pathNumber}/22 | This is sacred mathematics, not randomness.`
+  return `Your Gematria: ${walletGematria} | Lunar: ${lunarInfluence} (${lunarPhase.name}) | Destiny: ${destinyNumber} | Path: ${pathNumber}/22 | Sacred mathematics, not randomness.`
 }
