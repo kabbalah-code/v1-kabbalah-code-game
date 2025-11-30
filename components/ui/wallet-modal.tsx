@@ -28,7 +28,6 @@ export function WalletModal({ isOpen, onClose, onSuccess, referralCode }: Wallet
   const [state, setState] = useState<ConnectionState>("idle")
   const [error, setError] = useState("")
   const [address, setAddress] = useState("")
-  const [manualAddress, setManualAddress] = useState("")
   const [hasMetaMask, setHasMetaMask] = useState(false)
   const [isPreview, setIsPreview] = useState(false)
   const router = useRouter()
@@ -42,7 +41,6 @@ export function WalletModal({ isOpen, onClose, onSuccess, referralCode }: Wallet
     setState("idle")
     setError("")
     setAddress("")
-    setManualAddress("")
   }, [])
 
   useEffect(() => {
@@ -106,40 +104,6 @@ export function WalletModal({ isOpen, onClose, onSuccess, referralCode }: Wallet
     }
   }
 
-  const handleManualConnect = () => {
-    if (!isValidEvmAddress(manualAddress)) {
-      setError("Invalid EVM address. Must start with 0x followed by 40 hex characters.")
-      return
-    }
-
-    setState("creating")
-    setError("")
-    setAddress(manualAddress)
-
-    const walletNumber = calculateWalletNumber(manualAddress)
-
-    localStorage.setItem(
-      "kabbalah_wallet",
-      JSON.stringify({
-        address: manualAddress,
-        walletNumber,
-        signature: "demo-mode",
-        connectedAt: Date.now(),
-      }),
-    )
-
-    setState("success")
-
-    setTimeout(() => {
-      onSuccess(manualAddress)
-      router.push("/dashboard")
-    }, 1000)
-  }
-
-  const openWalletConnect = () => {
-    window.open("https://t.me/KabbalahCodeBot", "_blank")
-  }
-
   if (!isOpen) return null
 
   return (
@@ -189,49 +153,12 @@ export function WalletModal({ isOpen, onClose, onSuccess, referralCode }: Wallet
                 Try Again
               </button>
             </div>
-          ) : state === "manual" ? (
-            <div className="space-y-4">
-              <div className="text-center pb-2">
-                <Globe className="w-12 h-12 text-[#FF9500] mx-auto mb-3" />
-                <p className="text-white font-medium">Enter Wallet Address</p>
-                <p className="text-white/50 text-xs mt-1">
-                  {isPreview ? "Preview mode - enter your EVM address" : "MetaMask not detected"}
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                <input
-                  type="text"
-                  value={manualAddress}
-                  onChange={(e) => {
-                    setManualAddress(e.target.value)
-                    setError("")
-                  }}
-                  placeholder="0x..."
-                  className="w-full p-4 bg-[#0a0a0a] border border-[#FF9500]/30 focus:border-[#FF9500] text-white font-mono text-sm outline-none"
-                />
-                {error && <p className="text-red-400 text-xs">{error}</p>}
-                <button
-                  onClick={handleManualConnect}
-                  disabled={!manualAddress}
-                  className="w-full py-3 bg-[#FF9500] text-black font-bold uppercase tracking-wider hover:bg-[#FFB340] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Continue
-                </button>
-                <button
-                  onClick={resetState}
-                  className="w-full py-2 text-white/50 hover:text-white text-sm transition-colors"
-                >
-                  Back to options
-                </button>
-              </div>
-            </div>
           ) : (
             <>
               {isPreview && (
                 <div className="p-3 bg-[#FF9500]/10 border border-[#FF9500]/30 text-center mb-2">
                   <p className="text-[#FF9500] text-xs">
-                    Preview Mode - Use manual entry or open in new tab with MetaMask
+                    Preview Mode — MetaMask may be required in a full browser.
                   </p>
                 </div>
               )}
@@ -281,28 +208,6 @@ export function WalletModal({ isOpen, onClose, onSuccess, referralCode }: Wallet
                   </p>
                 </div>
               </button>
-
-              {/* Manual Entry Button */}
-              <button
-                onClick={() => setState("manual")}
-                disabled={state !== "idle"}
-                className="w-full p-4 border border-[#FF9500]/30 hover:border-[#FF9500] bg-[#0a0a0a] hover:bg-[#111] transition-all flex items-center gap-4 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <div className="w-12 h-12 bg-[#FF9500]/10 flex items-center justify-center">
-                  <Wallet className="w-6 h-6 text-[#FF9500]" />
-                </div>
-                <div className="flex-1 text-left">
-                  <p className="text-white font-medium">Enter Address</p>
-                  <p className="text-white/50 text-sm">Input your EVM wallet address</p>
-                </div>
-              </button>
-
-              {/* Divider */}
-              <div className="flex items-center gap-4 py-2">
-                <div className="flex-1 h-px bg-white/10" />
-                <span className="text-white/30 text-xs uppercase">or</span>
-                <div className="flex-1 h-px bg-white/10" />
-              </div>
 
               {/* Telegram Alternative */}
               <a
