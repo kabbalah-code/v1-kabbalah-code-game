@@ -11,7 +11,7 @@ import { checkAndAwardAchievements } from "@/lib/achievements/checker"
 
 export async function POST(request: NextRequest) {
   try {
-    const { tweetUrl, walletAddress, predictionCode } = await request.json()
+    const { tweetUrl, walletAddress, predictionMessage } = await request.json()
 
     // ✅ Валидация входных данных
     if (!tweetUrl || !walletAddress) {
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify tweet contains #KabbalahCode and wallet identifier
-    const contentCheck = verifyTweetContent(tweet.text, walletAddress)
+    const contentCheck = verifyTweetContent(tweet.text, predictionMessage)
     if (!contentCheck.valid) {
       return NextResponse.json({ success: false, error: contentCheck.error }, { status: 400 })
     }
